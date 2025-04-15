@@ -81,7 +81,7 @@ Binary classification on raw data yielded the best results, particularly with **
 
 ## 📄 Reports
 
-- [📓 Final Project Report (PDF)](reports/DLS%20Final%20Project%20Report.pdf)
+- [📓 Final Project Report (PDF)](DLS%20Final%20Project%20Report.pdf)
 
 ---
 
