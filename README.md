@@ -58,14 +58,41 @@ Segmentation tasks used subsets of ISIC 2018 with:
 
 ## 📈 Results
 
-| Model                              | Dataset Type      | Accuracy | F1-Score | Recall  |
-|-----------------------------------|-------------------|----------|----------|---------|
-| Inception ResNet V2 + Soft Attn   | Raw               | 82.5%    | 83.3%    | 82.5%   |
-| Inception ResNet V2 + Soft Attn   | Segmented (SAM)   | 78.82%   | 79.78%   | 78.82%  |
-| ResNet50 + Transformer            | Raw               | 79.4%    | 78.9%    | 79.4%   |
-| Basic CNN                         | Raw               | 52.5%    | 60.3%    | 61.9%   |
+We evaluated multiple models on both **raw images** and **auto-segmented lesions** (using SAM and ResNet50-based U-Net). Below is a summary of the best-performing configurations for each classification task:
 
-Binary classification on raw data yielded the best results, particularly with **soft attention mechanisms**, which improved model focus on lesion-relevant features.
+### 🔹 Multi-Class Classification (7 Classes) – Using Raw Images
+
+| Model                            | Accuracy | F1-Score | Recall  |
+|----------------------------------|----------|----------|---------|
+| Basic CNN                        | 52.5%    | 60.3%    | 61.9%   |
+| ResNet50 + Transformer           | 79.4%    | 78.9%    | 79.4%   |
+| Inception ResNet V2 + Soft Attn  | **82.5%**| **83.3%**| **82.5%** |
+| ResNet50 + Advanced Soft Attn    | 80.8%    | 80.3%    | 80.8%   |
+
+### 🔹 Binary Classification (Benign vs. Malignant) – Using Raw Images
+
+| Model                            | Accuracy | F1-Score | Recall  |
+|----------------------------------|----------|----------|---------|
+| Basic CNN                        | 79.80%   | 45.99%   | 44.10%  |
+| ResNet50 + Transformer           | 88.70%   | 67.99%   | 61.54%  |
+| Inception ResNet V2 + Soft Attn  | **89.60%**| **76.04%**| **84.62%** |
+
+> ✅ *The Inception ResNet V2 model with soft attention had the highest accuracy and recall for both tasks, making it the most clinically effective.*
+
+---
+
+### 🔹 Classification on Auto-Segmented Images
+
+| Model                            | Segmentation Method     | Accuracy | F1-Score | Recall  |
+|----------------------------------|--------------------------|----------|----------|---------|
+| Basic CNN                        | Grounding DINO + SAM     | 56.94%   | 59.93%   | 56.94%  |
+| ResNet50 + Transformer           | Grounding DINO + SAM     | 67.53%   | 69.90%   | 67.53%  |
+| Inception ResNet V2 + Soft Attn  | Grounding DINO + SAM     | **78.82%**| **79.78%**| **78.82%** |
+| ResNet50 + Adv. Soft Attn        | Grounding DINO + SAM     | 73.63%   | 75.50%   | 73.63%  |
+| Inception ResNet V2 + Soft Attn  | ResNet50-based U-Net     | 75.52%   | 77.10%   | 75.52%  |
+
+> 🧪 Models trained on **raw images** consistently outperformed those trained on **segmented data**, though segmentation still added value in interpretability.
+
 
 ---
 
